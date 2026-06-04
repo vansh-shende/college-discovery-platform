@@ -3,17 +3,30 @@ import EmptyState from "../components/EmptyState";
 import CollegeBanner from "../components/CollegeBanner";
 import SaveButton from "../components/SaveButton";
 import type { SavedItem } from "@/app/types";
+import prisma from "@/src/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 const DEMO_USER_ID = "ef06df50-d216-492d-a3c7-ce4c17c71dab";
 
 async function getSavedColleges(): Promise<SavedItem[]> {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/saved?userId=${DEMO_USER_ID}`,
-      { cache: "no-store" }
-    );
-    const json = await res.json();
-    return json.success ? json.data : [];
+    const data = await prisma.savedItem.findMany({
+      where: { userId: DEMO_USER_ID },
+      include: {
+        college: {
+          select: {
+            id: true,
+            name: true,
+            location: true,
+            ranking: true,
+            description: true,
+          },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+    return data as any;
   } catch { return []; }
 }
 

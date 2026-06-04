@@ -2,15 +2,26 @@ import Link from "next/link";
 import SaveButton from "../../components/SaveButton";
 import CollegeBanner from "../../components/CollegeBanner";
 import type { College } from "@/app/types";
+import prisma from "@/src/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 async function getCollege(id: string): Promise<College | null> {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/colleges/${id}`,
-      { cache: "no-store" }
-    );
-    const json = await res.json();
-    return json.success ? json.data : null;
+    const data = await prisma.college.findUnique({
+      where: { id },
+      include: {
+        courses: {
+          select: {
+            id: true,
+            name: true,
+            fees: true,
+            duration: true,
+          },
+        },
+      },
+    });
+    return data as any;
   } catch { return null; }
 }
 
