@@ -38,6 +38,10 @@ const GRADIENTS = [
   "from-fuchsia-400 to-purple-600",
 ];
 
+const COLLEGE_IMAGES: Record<string, string> = {
+  "Indian Institute of Technology Bombay": "/iit-bombay.jpg",
+};
+
 interface CollegeBannerProps {
   name: string;
   ranking?: number;
@@ -55,6 +59,8 @@ export default function CollegeBanner({
 }: CollegeBannerProps) {
   const [imgError, setImgError] = useState(false);
 
+  const activeImageUrl = imageUrl || COLLEGE_IMAGES[name];
+
   const seed = hashSeed(name);
   const gradientIdx = seed % GRADIENTS.length;
   const gradient = GRADIENTS[gradientIdx];
@@ -64,9 +70,9 @@ export default function CollegeBanner({
 
   return (
     <div className={`banner-zoom relative ${height} w-full overflow-hidden ${variant === "card" ? "rounded-t-2xl" : "rounded-2xl"}`}>
-      {imageUrl && !imgError ? (
+      {activeImageUrl && !imgError ? (
         <Image
-          src={imageUrl}
+          src={activeImageUrl}
           alt={`${name} campus`}
           fill
           sizes={variant === "detail" ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"}
