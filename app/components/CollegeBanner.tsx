@@ -40,6 +40,20 @@ const GRADIENTS = [
 
 const COLLEGE_IMAGES: Record<string, string> = {
   "Indian Institute of Technology Bombay": "/iit-bombay.jpg",
+  "Indian Institute of Technology Delhi": "/iit-delhi.jpg",
+  "Indian Institute of Science": "/iisc.jpg",
+  "Indian Institute of Technology Madras": "/iit-madras.jpg",
+  "Indian Institute of Technology Kanpur": "/iit-kanpur.jpg",
+  "Indian Institute of Technology Kharagpur": "/iit-kharagpur.jpg",
+  "Delhi University": "/du.jpg",
+  "Jawaharlal Nehru University": "/jnu.jpg",
+  "Birla Institute of Technology and Science Pilani": "/nits.jpg",
+  "Vellore Institute of Technology": "/vit.jpg",
+  "National Institute of Technology Tiruchirappalli": "/nit-tiru.jpg",
+  "Jadavpur University": "/javed-pur.jpg",
+  "Indian Institute of Technology Roorkee": "/iit-roorkee.jpg",
+  "Anna University": "/au.jpg",
+  "Manipal Academy of Higher Education": "/manipal.jpg",
 };
 
 interface CollegeBannerProps {
